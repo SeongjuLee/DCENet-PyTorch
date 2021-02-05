@@ -1,0 +1,38 @@
+{       
+    "o_drop": 0.2,
+    "s_drop": 0.1,
+    "z_drop": 0.15,
+    "n_hidden": 512,
+    "z_dim": 2,
+    "encoder_dim": 16,
+    "z_decoder_dim": 64,
+    "hidden_size": 32,
+    "x_encoder_dim": 64,
+    "y_encoder_dim": 64,
+    "x_encoder_layers": 3,
+    "y_encoder_layers": 3,
+    "x_encoder_head": 8,
+    "y_encoder_head": 8,
+    "occu_encoder_x_dim": 32,
+    "occu_encoder_y_dim": 32,
+    "occu_encoder_x_layers": 3,
+    "occu_encoder_y_layers": 3,
+    "occu_encoder_x_head": 2,
+    "occu_encoder_y_head": 2,
+
+    "obs_seq": 8,
+    "enviro_pdim": [32, 32, 3],
+    "pred_seq": 12,
+
+    "lr": 3e-5,
+    "beta": 0.65,
+    "split": 0.8,
+    "max_epochs": 1,
+    "batch_size": 192,
+    "patience": 5,
+
+    "num_pred": 25,
+
+    "neptune": false,
+    "neptune_token": ""
+}
