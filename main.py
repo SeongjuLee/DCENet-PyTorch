@@ -112,7 +112,7 @@ def main():
             break
     
     # ================= Test ================ #
-    model.load_state_dict(torch.load(os.path.join('checkpoints', args.config.split('/')[-1] + '.pth')))
+    model.load_state_dict(torch.load(os.path.join('checkpoints', args.config.split('/')[-1].replace('.json', '.pth'))))
     model.eval()
     with torch.no_grad():
         test_x, test_occu = input2tensor(test_x, test_occu, device)
