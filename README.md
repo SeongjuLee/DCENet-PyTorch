@@ -33,7 +33,7 @@ You can obtain the processed data from the original repository (https://github.c
 
 `python evaluate.py --gpu 0 --config config.json --resume-name best_model.pth`
 
-## Performance
+## Performance on Biwi Hotel Dataset
 ### Evaluation Results @Top25
 |      Criteria      	| Original Implementation (Tensorflow) 	| My Implementation (PyTorch) 	|
 |:------------------:	|:------------------------------------:	|:---------------------------:	|
