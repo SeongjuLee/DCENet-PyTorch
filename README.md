@@ -41,7 +41,7 @@ You can obtain the processed data from the original repository (https://github.c
 |         FDE        	|                0.76 m                	|            0.67 m           	|
 | Hausdorff Distance 	|                0.75 m                	|            0.67 m           	|
 |   Speed Deviation  	|               0.06 m/s               	|           0.05 m/s          	|
-|    Heading Error   	|                 25.60                	|            24.67            	|
+|    Heading Error   	|             25.60 degree            	|         24.67 degree        	|
 
 ### Evaluation Results for Most-likely Predictions
 |      Criteria      	| Original Implementation (Tensorflow) 	| My Implementation (PyTorch) 	|
@@ -50,7 +50,7 @@ You can obtain the processed data from the original repository (https://github.c
 |         FDE        	|                0.78 m                	|            0.79 m           	|
 | Hausdorff Distance 	|                0.77 m                	|            0.78 m           	|
 |   Speed Deviation  	|               0.06 m/s               	|           0.05 m/s          	|
-|    Heading Error   	|                 30.98                	|            30.62            	|
+|    Heading Error   	|             30.98 degree             	|         30.62 degree         	|
 
 
 ## License
