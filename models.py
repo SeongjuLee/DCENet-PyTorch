@@ -29,6 +29,8 @@ class Encoder(nn.Module):
     def __init__(self, config, x_or_y='x'):
         super(Encoder, self).__init__()
 
+        self.config = config
+
         # For trajectory
         self.traj_conv1 = nn.Conv1d(in_channels=2, out_channels=config['n_hidden'] // 16, kernel_size=3, stride=1, padding=1)
         self.traj_fc = nn.Sequential(
@@ -93,21 +95,31 @@ class Encoder(nn.Module):
 
         # print(sum(p.numel() for p in self.occu_time_distributed.parameters() if p.requires_grad))
 
+    def init_hidden(self, x):
+        h0 = torch.zeros((1, x.size(0), self.config['hidden_size'])).cuda()
+        c0 = torch.zeros((1, x.size(0), self.config['hidden_size'])).cuda()
+        
+        return h0, c0
+
     def forward(self, traj, dmap):
-        traj = torch.transpose(traj, 1, 2)
+        traj = traj.transpose(1, 2)
         traj = self.traj_conv1(traj)
-        traj = torch.transpose(traj, 1, 2)
+        traj = traj.transpose(1, 2)
         traj = self.traj_fc(traj)
+        traj = traj.transpose(0, 1)  # (L, B, H)
         traj = self.traj_pos_encode(traj)
         traj = self.traj_transformer_encoder(traj)
-        traj = torch.transpose(traj, 1, 2)
+        traj = traj.transpose(0, 1).transpose(1, 2)
         traj = self.traj_avg_pool(traj)
 
         dmap = self.occu_time_distributed(dmap)
+        dmap = dmap.transpose(0, 1)
         dmap = self.occu_pos_encode(dmap)
         dmap = self.occu_transformer_encoder(dmap)
-        dmap, _ = self.occu_lstm(dmap)
-        dmap = dmap[:, -1, :]
+        dmap = dmap.transpose(0, 1)
+        dmap_hidden = self.init_hidden(dmap)
+        dmap_out, dmap_hidden = self.occu_lstm(dmap, dmap_hidden)
+        dmap = dmap_out[:, -1, :]
         dmap = self.occu_dropout(dmap)
 
         out = torch.cat((traj, dmap), dim=1)
